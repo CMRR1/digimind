@@ -16,20 +16,24 @@ import kotlinx.android.synthetic.main.task_view.view.*
 import rios.cecilia.digimind.R
 
 class HomeFragment : Fragment() {
-    var tasks=ArrayList<Task>()
+
     private var adaptador: AdaptadorTareas?=null
+
+    companion object{
+        var tasks=ArrayList<Task>()
+        var first=true
+    }
     private lateinit var homeViewModel: HomeViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        fillTask()
+        if(first){
+            fillTask()
+            first=false
+        }
 
         adaptador= AdaptadorTareas(root.context,tasks)
         root.gridview.adapter=adaptador

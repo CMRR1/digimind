@@ -19,5 +19,4 @@
         android:numColumns="3"
         android:padding="20dp"
         />
-
 </LinearLayout>
