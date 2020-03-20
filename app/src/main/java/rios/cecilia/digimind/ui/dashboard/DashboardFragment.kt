@@ -1,6 +1,7 @@
 package rios.cecilia.digimind.ui.dashboard
 
 import Task
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,9 @@ import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.et_task
 import rios.cecilia.digimind.R
 import rios.cecilia.digimind.ui.home.HomeFragment
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DashboardFragment : Fragment() {
 
@@ -33,6 +37,17 @@ class DashboardFragment : Fragment() {
 //            textView.text = it
 //        })
 
+    root.btn_time.setOnClickListener {
+        val cal=Calendar.getInstance()
+        val timeSetListener=TimePickerDialog.OnTimeSetListener{timePicker, hour, minute ->
+            cal.set(Calendar.HOUR_OF_DAY,hour)
+            cal.set(Calendar.MINUTE, minute)
+
+            btn_time.text=SimpleDateFormat("HH:mm").format(cal.time)
+        }
+
+        TimePickerDialog(root.context,timeSetListener,cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+    }
 
     root.btn_save.setOnClickListener{
         var title=et_task.text.toString()
